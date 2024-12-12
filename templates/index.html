@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  .card-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    background: none;
+    position: relative;
+    left: 20%;
+  }
+
+  .form-row input {
+    width: 300px;
+  }
+  .form-row button {
+    width: 300px;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .output {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+  }
+
+  .output h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #333;
+  }
+
+  .output h2 {
+    font-size: 24px;
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+
+  .output ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-top: 15px;
+  }
+
+  .output li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+  }
+
+  .output li b {
+    font-weight: bold;
+  }
+</style>
+
+<div class="card-body">
+  <form method="POST" action="/predict" class="register-form" id="register-form" enctype="multipart/form-data" role="form">
+    <div class="form-row">
+      <center>
+        <p>Choose Test File</p>
+        <br />
+        <input type="file" required name="file_path" class="form-control" placeholder="Upload your file" />
+      </center>
+    </div>
+
+    <div class="form-row">
+      <div align="center">
+        <button class="btn btn--radius-2 btn--blue-2" type="submit">SUBMIT</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% if lb %}
+<div class="card-body">
+  <div class="output">
+    <h1>Prediction Result</h1>
+    <h2>Attack Details</h2>
+    <p><b>Attack Type:</b> {{ lb }}</p>
+    <p><b>IP Address:</b> {{ ip }}</p>
+    <h2>Mitigation Measures:</h2>
+    <ul>
+      {% for measure in mitigation %}
+      <li>{{ measure }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}
